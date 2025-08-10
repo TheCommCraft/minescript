@@ -1659,10 +1659,10 @@ public class Minescript {
             .filter(s -> s.startsWith(command))
             .collect(Collectors.toList());
       } else if (command.startsWith("q") && command.contains(" ")) {
-        var completions = config.scriptConfig().findCommandPrefixMatches(command.replaceAll(" ", "--"));
-        completions.sort(null);
-        return completions.stream()
+        return config.scriptConfig().findCommandPrefixMatches(command.replaceAll(" ", "--")).stream()
+            .sorted()
             .map(c -> c.replaceAll("--", " "))
+            .filter(s -> s.startsWith(command))
             .collect(Collectors.toList());
       } else {
         var completions = config.scriptConfig().findCommandPrefixMatches(command);
