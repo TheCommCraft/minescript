@@ -1669,12 +1669,12 @@ public class Minescript {
         while (matcher.find()) {
           nums.add(matcher.group());
         }
-        return config.scriptConfig().findCommandPrefixMatches(command.replaceAll(" -?\\d+(\\.\\d+)?([eE][+-]?\\d+)?", "---num-").replaceAll(" ", "--")).stream()
+        return config.scriptConfig().findCommandPrefixMatches(command.replaceAll(" -?\\d+(\\.\\d+)?([eE][+-]?\\d+)?", "--_num_").replaceAll(" ", "--")).stream()
             .sorted()
             .map(c -> {
               String comm = c;
               for (String num : nums) {
-                comm = comm.replaceFirst("---num-", " "+num);
+                comm = comm.replaceFirst("--_num_", " "+num);
               }
               return comm.replaceAll("--", " ");
             })
