@@ -1636,6 +1636,9 @@ public class Minescript {
     if (words.length > 1 && COMMANDS_WITH_FIRST_PARAM_COMPLETIONS.contains(words[0])) {
       return words[0] + " " + words[1];
     }
+    if (words.length > 1 && words[0].startsWith("q")) {
+      return input.replaceAll("\\s+", " ");
+    }
     return words.length > 0 ? words[0] : "";
   }
 
