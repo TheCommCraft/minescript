@@ -1663,7 +1663,7 @@ public class Minescript {
             .collect(Collectors.toList());
       } else if (command.startsWith("q") && command.contains(" ")) {
         Pattern numberPattern = Pattern.compile("(?<= )-?\\d+(\\.\\d+)?([eE][+-]?\\d+)?");
-        Matcher matcher = pattern.matcher(command);
+        Matcher matcher = numberPattern.matcher(command);
         ArrayList<String> nums = new ArrayList<String>();
         while (matcher.find()) {
           nums.add(matcher.group());
