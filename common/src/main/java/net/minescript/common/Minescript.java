@@ -1671,20 +1671,22 @@ public class Minescript {
           nums.add(matcher.group());
         }
         String rCommand = command.replaceAll(" -?\\d+(\\.\\d+)?([eE][+-]?\\d+)?", "--_num_").replaceAll(" ", "--");
-        return Stream.concat(
-          config.scriptConfig().findCommandPrefixMatches(rCommand).stream(),
-          config.scriptConfig().findCommandPrefixMatches(rCommand.stripTrailing()).stream()
-        )
-            .sorted()
-            .map(c -> {
-              String comm = c;
-              for (String num : nums) {
-                comm = comm.replaceFirst("--_num_", " "+num);
-              }
-              return comm.replaceAll("--", " ");
-            })
-            .filter(s -> s.startsWith(command))
-            .collect(Collectors.toList());
+        return new ArrayList<>(
+          Stream.concat(
+            config.scriptConfig().findCommandPrefixMatches(rCommand).stream(),
+            config.scriptConfig().findCommandPrefixMatches(rCommand.stripTrailing()).stream()
+          )
+              .sorted()
+              .map(c -> {
+                String comm = c;
+                for (String num : nums) {
+                  comm = comm.replaceFirst("--_num_", " "+num);
+                }
+                return comm.replaceAll("--", " ");
+              })
+              .filter(s -> s.startsWith(command))
+              .collect(Collectors.toSet())
+        );
       } else {
         var completions = config.scriptConfig().findCommandPrefixMatches(command);
         completions.sort(null);
