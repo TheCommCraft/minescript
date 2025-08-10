@@ -1672,7 +1672,7 @@ public class Minescript {
         String rCommand = command.replaceAll(" -?\\d+(\\.\\d+)?([eE][+-]?\\d+)?", "--_num_").replaceAll(" ", "--");
         return Stream.concat(
           config.scriptConfig().findCommandPrefixMatches(rCommand).stream(),
-          config.scriptConfig().findCommandPrefixMatches(rCommand.stripTailing()).stream()
+          config.scriptConfig().findCommandPrefixMatches(rCommand.stripTrailing()).stream()
         )
             .sorted()
             .map(c -> {
