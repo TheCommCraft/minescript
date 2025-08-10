@@ -1665,7 +1665,13 @@ public class Minescript {
         String[] nums = command.split("(?= -?\d+(\.\d+)?([eE][+-]?\d+)?) ", -1);
         return config.scriptConfig().findCommandPrefixMatches(command.replaceAll(" -?\d+(\.\d+)?([eE][+-]?\d+)?", "---num-").replaceAll(" ", "--")).stream()
             .sorted()
-            .map(c -> c.replaceAll("--", " "))
+            .map(c -> {
+              String comm = c;
+              for (String num : nums) {
+                comm = comm.replaceFirst("---num-", " "+num);
+              }
+              return comm.replaceAll("--", " ");
+            })
             .filter(s -> s.startsWith(command))
             .collect(Collectors.toList());
       } else {
