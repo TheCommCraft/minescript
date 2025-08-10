@@ -1662,7 +1662,8 @@ public class Minescript {
             .filter(s -> s.startsWith(command))
             .collect(Collectors.toList());
       } else if (command.startsWith("q") && command.contains(" ")) {
-        return config.scriptConfig().findCommandPrefixMatches(command.replaceAll(" ", "--")).stream()
+        String[] nums = command.split("(?= -?\d+(\.\d+)?([eE][+-]?\d+)?) ", -1);
+        return config.scriptConfig().findCommandPrefixMatches(command.replaceAll(" -?\d+(\.\d+)?([eE][+-]?\d+)?", "---num-").replaceAll(" ", "--")).stream()
             .sorted()
             .map(c -> c.replaceAll("--", " "))
             .filter(s -> s.startsWith(command))
