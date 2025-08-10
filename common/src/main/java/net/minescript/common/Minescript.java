@@ -1674,7 +1674,7 @@ public class Minescript {
         return new ArrayList<>(
           Stream.concat(
             config.scriptConfig().findCommandPrefixMatches(rCommand).stream(),
-            config.scriptConfig().findCommandPrefixMatches(rCommand.stripTrailing()).stream()
+            config.scriptConfig().findCommandPrefixMatches(rCommand.replaceFirst("(--)+$", "")).stream()
           )
               .sorted()
               .map(c -> {
