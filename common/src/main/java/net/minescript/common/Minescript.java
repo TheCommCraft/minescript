@@ -1669,7 +1669,11 @@ public class Minescript {
         while (matcher.find()) {
           nums.add(matcher.group());
         }
-        return config.scriptConfig().findCommandPrefixMatches(command.replaceAll(" -?\\d+(\\.\\d+)?([eE][+-]?\\d+)?", "--_num_").replaceAll(" ", "--")).stream()
+        String rCommand = command.replaceAll(" -?\\d+(\\.\\d+)?([eE][+-]?\\d+)?", "--_num_").replaceAll(" ", "--")
+        return Stream.concat(
+          config.scriptConfig().findCommandPrefixMatches(rCommand).stream(),
+          config.scriptConfig().findCommandPrefixMatches(rCommand.stripTailing()).stream()
+        )
             .sorted()
             .map(c -> {
               String comm = c;
