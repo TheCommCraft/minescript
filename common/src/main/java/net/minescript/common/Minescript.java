@@ -1662,7 +1662,7 @@ public class Minescript {
         var completions = config.scriptConfig().findCommandPrefixMatches(command.replaceAll(" ", "--"));
         completions.sort(null);
         return completions.stream()
-            .map(c -> c.replaceAll("--", " ")
+            .map(c -> c.replaceAll("--", " "))
             .collect(Collectors.toList());
       } else {
         var completions = config.scriptConfig().findCommandPrefixMatches(command);
