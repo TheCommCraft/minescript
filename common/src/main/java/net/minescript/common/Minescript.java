@@ -1702,6 +1702,9 @@ public class Minescript {
       if (key >= 32 && key < 127) {
         // TODO(maxuser): use chatEditBox.setSuggestion(String) to set suggestion?
         // TODO(maxuser): detect upper vs lower case properly
+        if (key == 120) {
+          chatEditBox.setSuggestion("hello");
+        }
         String extraChar = Character.toString((char) key).toLowerCase();
         value = insertSubstring(value, cursorPos, extraChar);
       } else if (key == BACKSPACE_KEY) {
