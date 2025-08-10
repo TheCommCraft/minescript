@@ -1637,7 +1637,7 @@ public class Minescript {
       return words[0] + " " + words[1];
     }
     if (words.length > 1 && words[0].startsWith("q")) {
-      return input.replaceAll("\\s+", " ");
+      return String.join(" ", ...words);
     }
     return words.length > 0 ? words[0] : "";
   }
