@@ -1658,6 +1658,12 @@ public class Minescript {
             .map(s -> "which " + s)
             .filter(s -> s.startsWith(command))
             .collect(Collectors.toList());
+      } else if (command.startsWith("q") && command.contains(" ")) {
+        var completions = config.scriptConfig().findCommandPrefixMatches(command.replaceAll(" ", "--"));
+        completions.sort(null);
+        return completions.stream()
+            .map(c -> c.replaceAll("--", " ")
+            .collect(Collectors.toList());
       } else {
         var completions = config.scriptConfig().findCommandPrefixMatches(command);
         completions.sort(null);
@@ -1702,9 +1708,6 @@ public class Minescript {
       if (key >= 32 && key < 127) {
         // TODO(maxuser): use chatEditBox.setSuggestion(String) to set suggestion?
         // TODO(maxuser): detect upper vs lower case properly
-        if (key == 120) {
-          chatEditBox.setSuggestion("hello");
-        }
         String extraChar = Character.toString((char) key).toLowerCase();
         value = insertSubstring(value, cursorPos, extraChar);
       } else if (key == BACKSPACE_KEY) {
