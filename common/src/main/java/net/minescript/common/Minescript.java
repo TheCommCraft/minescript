@@ -53,6 +53,7 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 import java.util.stream.Collectors;
 import net.minecraft.SharedConstants;
 import net.minecraft.client.KeyMapping;
