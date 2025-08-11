@@ -14,6 +14,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.ChatScreen;
 import net.minecraft.client.gui.screens.Screen;
 import net.minescript.common.Minescript;
+import net.minescript.common.Message;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -39,6 +40,7 @@ public final class MinescriptFabricClientMod implements ClientModInitializer {
       ScreenKeyboardEvents.allowKeyPress(screen)
           .register(
               (_screen, key, scancode, modifiers) -> {
+                Minescript.systemMessageQueue.add(Message.formatAsJsonColoredText(String.valueOf(modifiers), "aqua"));
                 int keyCode = key;
                 if (keyCode >= 32 && keyCode < 127 && (modifiers & 4) > 0) {
                   if (keyCode >= 97 && keyCode < 123) {
