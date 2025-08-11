@@ -40,9 +40,8 @@ public final class MinescriptFabricClientMod implements ClientModInitializer {
       ScreenKeyboardEvents.allowKeyPress(screen)
           .register(
               (_screen, key, scancode, modifiers) -> {
-                Minescript.systemMessageQueue.add(Message.formatAsJsonColoredText(String.valueOf(modifiers), "aqua"));
                 int keyCode = key;
-                if (keyCode >= 32 && keyCode < 127 && (modifiers & 4) > 0) {
+                if (keyCode >= 32 && keyCode < 127 && (modifiers & 1) > 0) {
                   if (keyCode >= 97 && keyCode < 123) {
                     keyCode -= 32;
                   }
