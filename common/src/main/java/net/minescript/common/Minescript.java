@@ -1785,8 +1785,6 @@ public class Minescript {
           }
         }
         var completions = getCommandCompletions(command);
-        systemMessageQueue.add(Message.formatAsJsonColoredText(command, "aqua"));
-        systemMessageQueue.add(Message.formatAsJsonColoredText(String.valueOf(key), "aqua"));
         if (completions.contains(command)) {
           chatEditBox.setTextColor(0xff5ee85e); // green
           commandSuggestions = new ArrayList<>();
