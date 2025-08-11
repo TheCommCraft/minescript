@@ -38,8 +38,66 @@ public final class MinescriptFabricClientMod implements ClientModInitializer {
     if (screen instanceof ChatScreen) {
       ScreenKeyboardEvents.allowKeyPress(screen)
           .register(
-              (_screen, key, scancode, modifiers) ->
-                  !Minescript.onKeyboardKeyPressed(_screen, key));
+              (_screen, key, scancode, modifiers) -> {
+                int keyCode = key;
+                if (keyCode >= 32 && keyCode < 127 && (modifiers & 4) > 0) {
+                  if (keyCode >= 97 && keyCode < 123) {
+                    keyCode -= 32;
+                  }
+                  switch (keyCode) {
+                    case 48:
+                      keyCode = 61;
+                      break;
+                    case 49:
+                      keyCode = 33;
+                      break;
+                    case 50:
+                      keyCode = 34;
+                      break;
+                    case 51:
+                      keyCode = 167;
+                      break;
+                    case 52:
+                      keyCode = 36;
+                      break;
+                    case 53:
+                      keyCode = 37;
+                      break;
+                    case 54:
+                      keyCode = 38;
+                      break;
+                    case 55:
+                      keyCode = 47;
+                      break;
+                    case 56:
+                      keyCode = 40;
+                      break;
+                    case 57:
+                      keyCode = 41;
+                      break;
+                    case 223:
+                      keyCode = 63;
+                      break;
+                    case 35:
+                      keyCode = 39;
+                      break;
+                    case 43:
+                      keyCode = 42;
+                      break;
+                    case 45:
+                      keyCode = 95;
+                      break;
+                    case 46:
+                      keyCode = 58;
+                      break;
+                    case 44:
+                      keyCode = 59;
+                      break;
+                  }
+                }
+                return !Minescript.onKeyboardKeyPressed(_screen, keyCode);
+              }
+          );
     }
   }
 
