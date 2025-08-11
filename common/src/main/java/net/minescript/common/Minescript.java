@@ -1671,7 +1671,7 @@ public class Minescript {
           nums.add(numberMatcher.group());
         }
         Pattern stringPattern = Pattern.compile("(?<= )\".*(?<!\\\\)(\\\\\\\\)*?\"");
-        Matcher stringMatcher = numberPattern.matcher(command);
+        Matcher stringMatcher = stringPattern.matcher(command);
         ArrayList<String> strs = new ArrayList<String>();
         while (stringMatcher.find()) {
           strs.add(stringMatcher.group());
