@@ -1665,12 +1665,21 @@ public class Minescript {
             .collect(Collectors.toList());
       } else if (command.startsWith("q") && command.contains(" ")) {
         Pattern numberPattern = Pattern.compile("(?<= )-?\\d+(\\.\\d+)?([eE][+-]?\\d+)?");
-        Matcher matcher = numberPattern.matcher(command);
+        Matcher numberMatcher = numberPattern.matcher(command);
         ArrayList<String> nums = new ArrayList<String>();
-        while (matcher.find()) {
-          nums.add(matcher.group());
+        while (numberMatcher.find()) {
+          nums.add(numberMatcher.group());
         }
-        String rCommand = command.replaceAll(" -?\\d+(\\.\\d+)?([eE][+-]?\\d+)?", "--_num_").replaceAll(" ", "--");
+        Pattern stringPattern = Pattern.compile("(?<= )\".*(?<!\\\\)(\\\\\\\\)*?\"");
+        Matcher stringMatcher = numberPattern.matcher(command);
+        ArrayList<String> strs = new ArrayList<String>();
+        while (stringMatcher.find()) {
+          strs.add(stringMatcher.group());
+        }
+        String rCommand = command
+            .replaceAll(" -?\\d+(\\.\\d+)?([eE][+-]?\\d+)?", "--_num_")
+            .replaceAll(" \".*(?<!\\\\)(\\\\\\\\)*?\"", "--_str_")
+            .replaceAll(" ", "--");
         return new ArrayList<>(
           Stream.concat(
             config.scriptConfig().findCommandPrefixMatches(rCommand).stream(),
@@ -1681,6 +1690,9 @@ public class Minescript {
                 String comm = c;
                 for (String num : nums) {
                   comm = comm.replaceFirst("--_num_", " "+num);
+                }
+                for (String str : strs) {
+                  comm = comm.replaceFirst("--_str_", " "+str);
                 }
                 return comm.replaceAll("--", " ");
               })
